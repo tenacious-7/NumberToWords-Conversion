@@ -18,7 +18,7 @@
 	document.getElementById("form").addEventListener("submit", function(event) {
 		event.preventDefault(); // Prevent the default form submission
 		var number = document.getElementById("number").value;
-		var url = "http://localhost:port/api/NumberToWords/" + number;
+		var url = "http://localhost:7131/api/NumberToWords/" + number;
 		fetch(url)
 			.then(response => response.text())
 			.then(data => {
