@@ -1,25 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Number to Words Converter</title>
+	<title>Number to Words Conversion</title>
 </head>
 <body>
-    <h1>Number to Words Converter</h1>
-    <p>Enter a number to convert to words:</p>
-    <input type="number" id="numberInput">
-    <button onclick="convertToWords()">Convert</button>
-    <p id="result"></p>
+	<h1>Number to Words Conversion</h1>
+	<form id="form">
+		<label for="number">Enter a number:</label>
+		<input type="number" id="number" name="number" required>
+		<button type="submit">Convert to Words</button>
+	</form>
+	<p id="result"></p>
+	
+		
+<script>
+	// Handle the form submission
+	document.getElementById("form").addEventListener("submit", function(event) {
+		event.preventDefault(); // Prevent the default form submission
+		var number = document.getElementById("number").value;
+		var url = "http://localhost:port/api/NumberToWords/" + number;
+		fetch(url)
+			.then(response => response.text())
+			.then(data => {
+				document.getElementById("result").textContent = data;
+			})
+			.catch(error => {
+				console.error(error);
+				document.getElementById("result").textContent = "An error occurred.";
+			});
+	});
+</script>
 
-    <script>
-        function convertToWords() {
-            var number = document.getElementById("numberInput").value;
-            fetch("/api/NumberToWords/" + number)
-                .then(response => response.text())
-                .then(result => {
-                    document.getElementById("result").innerHTML = result;
-                });
-        }
-    </script>
+	
 </body>
 </html>
